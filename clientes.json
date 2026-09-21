@@ -1,0 +1,97 @@
+[
+  {
+    "_id": {
+      "$oid": "650a1f1a1a1a1a1a1a1a0001"
+    },
+    "nombre": "Ana",
+    "apellido": "Lopez",
+    "correo": "ana.lopez@correo.com",
+    "telefono": "2721234567",
+    "direccion": {
+      "calle": "Oriente 5",
+      "num_ext": "312",
+      "colonia": "Centro",
+      "ciudad": "Orizaba",
+      "codigo_postal": "94300"
+    },
+    "fecha_registro": {
+      "$date": "2026-08-06T00:00:00Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "650a1f1a1a1a1a1a1a1a0002"
+    },
+    "nombre": "Juan",
+    "apellido": "Martinez",
+    "correo": "juan.martinez@correo.com",
+    "telefono": "2721274567",
+    "direccion": {
+      "calle": "Poniente 3",
+      "num_ext": "108",
+      "colonia": "Rafael Alvarado",
+      "ciudad": "Orizaba",
+      "codigo_postal": "94330"
+    },
+    "fecha_registro": {
+      "$date": "2026-08-10T00:00:00Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "650a1f1a1a1a1a1a1a1a0003"
+    },
+    "nombre": "Karla",
+    "apellido": "Sanchez",
+    "correo": "karla.sanchez@correo.com",
+    "telefono": "2721119988",
+    "direccion": {
+      "calle": "Sur 11",
+      "num_ext": "45",
+      "colonia": "Centro",
+      "ciudad": "Cordoba",
+      "codigo_postal": "94500"
+    },
+    "fecha_registro": {
+      "$date": "2026-08-15T00:00:00Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "650a1f1a1a1a1a1a1a1a0004"
+    },
+    "nombre": "Roberto",
+    "apellido": "Diaz",
+    "correo": "roberto.diaz@correo.com",
+    "telefono": "2727654321",
+    "direccion": {
+      "calle": "Norte 8",
+      "num_ext": "220",
+      "colonia": "Independencia",
+      "ciudad": "Fortin",
+      "codigo_postal": "94840"
+    },
+    "fecha_registro": {
+      "$date": "2026-08-20T00:00:00Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "650a1f1a1a1a1a1a1a1a0005"
+    },
+    "nombre": "Paola",
+    "apellido": "Fernandez",
+    "correo": "paola.fernandez@correo.com",
+    "telefono": "2721002233",
+    "direccion": {
+      "calle": "Colon",
+      "num_ext": "77",
+      "colonia": "Centro",
+      "ciudad": "Orizaba",
+      "codigo_postal": "94300"
+    },
+    "fecha_registro": {
+      "$date": "2026-08-25T00:00:00Z"
+    }
+  }
+]

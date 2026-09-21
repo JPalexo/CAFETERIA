@@ -1,0 +1,78 @@
+[
+  {
+    "_id": {
+      "$oid": "650a2f2a2a2a2a2a2a2a0001"
+    },
+    "nombre": "Capuchino",
+    "categoria": "Bebidas calientes",
+    "precio": 45,
+    "descripcion": "Espresso con leche vaporizada y espuma cremosa",
+    "ingredientes": [
+      "cafe espresso",
+      "leche",
+      "espuma de leche"
+    ],
+    "disponibilidad": true
+  },
+  {
+    "_id": {
+      "$oid": "650a2f2a2a2a2a2a2a2a0002"
+    },
+    "nombre": "Latte vainilla",
+    "categoria": "Bebidas calientes",
+    "precio": 48,
+    "descripcion": "Espresso con leche y jarabe de vainilla",
+    "ingredientes": [
+      "cafe espresso",
+      "leche",
+      "jarabe de vainilla"
+    ],
+    "disponibilidad": true
+  },
+  {
+    "_id": {
+      "$oid": "650a2f2a2a2a2a2a2a2a0003"
+    },
+    "nombre": "Frappe de moka",
+    "categoria": "Bebidas frias",
+    "precio": 55,
+    "descripcion": "Cafe frio licuado con hielo y chocolate",
+    "ingredientes": [
+      "cafe",
+      "leche",
+      "hielo",
+      "chocolate"
+    ],
+    "disponibilidad": true
+  },
+  {
+    "_id": {
+      "$oid": "650a2f2a2a2a2a2a2a2a0004"
+    },
+    "nombre": "Croissant de jamon y queso",
+    "categoria": "Alimentos",
+    "precio": 38,
+    "descripcion": "Croissant horneado relleno de jamon y queso manchego",
+    "ingredientes": [
+      "croissant",
+      "jamon",
+      "queso manchego"
+    ],
+    "disponibilidad": true
+  },
+  {
+    "_id": {
+      "$oid": "650a2f2a2a2a2a2a2a2a0005"
+    },
+    "nombre": "Pay de queso",
+    "categoria": "Postres",
+    "precio": 42,
+    "descripcion": "Rebanada de pay de queso con base de galleta",
+    "ingredientes": [
+      "queso crema",
+      "galleta",
+      "fruta"
+    ],
+    "disponibilidad": false
+  }
+]
