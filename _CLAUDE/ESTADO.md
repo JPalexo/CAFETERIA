@@ -1,17 +1,17 @@
 # Estado actual
 
-_Última actualización: 2026-10-29 (Code)_
+_Última actualización: 2026-10-29 (Cowork)_
 
 ## Siguiente paso
-➡️ **TAREA_03 — Frontend: login, vistas por rol y alerta de sesión** (`tareas/TAREA_03_frontend_login.md`). Incluye el arreglo D29 del rate limit. Antes: Alejandro agrega las variables del INFORME_02 a `app/.env` y corre `npm run crear-admin`.
+➡️ **T04 — Pruebas en navegador + Bruno y evidencias** (Cowork, en la PC de Alejandro; **preguntar antes de empezar**). Servidor de pruebas en el puerto **3100** por ahora.
 
 ## Plan por etapas
 | Tarea | Contenido | Quién | Estado |
 |---|---|---|---|
 | T01 | Reestructura a `app/ datos/ docs/`, separar `server.js` en capas, `git init` | Code | ✅ 2026-10-29 |
 | T02 | Backend de autenticación: `usuarios`, bcrypt, `crear-admin`, sesiones en node-cache, **rate limiter 5/min → 429**, proteger API | Code | ✅ 2026-10-29 (28/28 pruebas) |
-| T03 | Frontend: login, redirección por rol, alerta de sesión (modo prueba), panel admin con el catálogo actual + arreglo D29 | Code | ⏳ lista para hacer |
-| T04 | Pruebas en Bruno + capturas + entregable de la práctica (formato por confirmar) | Cowork + Alejandro | pendiente — **entrega de la práctica** |
+| T03 | Frontend: login, redirección por rol, alerta de sesión, panel admin + arreglo D29 | Code | ✅ código 2026-10-29 (31/31 automáticas); pruebas de navegador pasan a T04 |
+| T04 | Pruebas en navegador (lista del INFORME_03) + Bruno + capturas + entregable (formato por confirmar) | Cowork + Alejandro | ⏳ siguiente — **entrega de la práctica** |
 | T05 | Admin: usuarios del personal y clientes | Code | pendiente |
 | T06 | Atención: nuevo pedido (descuento 5 %), pedidos del día, estados y cancelación | Code | pendiente |
 | T07 | Recibos (común y personalizado) + historial de pedidos para admin | Code | pendiente |

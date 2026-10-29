@@ -14,15 +14,14 @@ async function login(req, res, next) {
   try {
     const { usuario, password } = req.body || {};
     if (typeof usuario !== 'string' || !usuario.trim() || typeof password !== 'string' || !password) {
-      const intentosRestantes = intentosLogin.registrarFallo(req.ip);
-      return res.status(400).json({ error: 'Usuario y contrasena son obligatorios.', intentosRestantes });
+      // el intento ya se conto en el rate limiter (D29)
+      return res.status(400).json({ error: 'Usuario y contrasena son obligatorios.', intentosRestantes: req.intentosRestantes });
     }
 
     const doc = await colecciones.usuarios.findOne({ usuario: usuario.trim().toLowerCase(), activo: true });
     const correcta = await bcrypt.compare(password, doc ? doc.password_hash : HASH_FALSO);
     if (!doc || !correcta) {
-      const intentosRestantes = intentosLogin.registrarFallo(req.ip);
-      return res.status(401).json({ error: 'Usuario o contrasena incorrectos.', intentosRestantes });
+      return res.status(401).json({ error: 'Usuario o contrasena incorrectos.', intentosRestantes: req.intentosRestantes });
     }
 
     intentosLogin.limpiar(req.ip); // RN4: un login correcto reinicia el contador

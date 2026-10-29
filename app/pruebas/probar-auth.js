@@ -1,4 +1,4 @@
-// Pruebas de la TAREA_02 (login, rate limit, sesiones y API protegida) contra el servidor corriendo.
+// Pruebas de la TAREA_02 y TAREA_03 (login, rate limit, sesiones y API protegida) contra el servidor corriendo.
 // Crea dos usuarios temporales con contrasenas aleatorias y los borra al final, aunque algo falle.
 // Uso: npm start (en otra terminal) y luego npm run probar-auth
 // Si el servidor corre con SESION_MODO_PRUEBA=true, solo se prueban los criterios del modo prueba.
@@ -153,6 +153,29 @@ async function pruebasNormales(usuarios) {
   const seg = Math.round((Date.now() - inicioVentana) / 1000);
   revisar('Ventana fija: a los ~60 s del primer fallo se puede intentar (401, no 429)', r.status === 401, `status ${r.status} a los ${seg} s`);
   await login(ADMIN, ADMIN.password); // deja el contador limpio
+
+  // --- TAREA_03: JSON mal formado y fallos simultaneos (D29) ---
+  const crudo = await fetch(`${BASE}/api/auth/login`, {
+    method: 'POST', headers: { 'Content-Type': 'application/json' }, body: '{"usuario": "admin", ',
+  });
+  const crudoJson = await crudo.json();
+  revisar('JSON mal formado en /api/auth/login → 400 y cuenta como intento',
+    crudo.status === 400 && crudoJson.error === 'El cuerpo de la peticion no es JSON valido.'
+      && crudoJson.intentosRestantes === env.LOGIN_MAX_INTENTOS - 1,
+    `status ${crudo.status}, restantes ${crudoJson.intentosRestantes}`);
+  await login(ADMIN, ADMIN.password); // limpia el contador
+  const malo2 = await fetch(`${BASE}/api/productos`, {
+    method: 'POST', headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${tAdmin}` }, body: '{mal',
+  });
+  revisar('JSON mal formado en POST /api/productos → 400 (no 500)', malo2.status === 400, `status ${malo2.status}`);
+
+  const simultaneos = await Promise.all(
+    Array.from({ length: 10 }, () => login(ADMIN, 'contrasena-incorrecta'))
+  );
+  const n401 = simultaneos.filter((x) => x.status === 401).length;
+  const n429 = simultaneos.filter((x) => x.status === 429).length;
+  revisar('10 logins fallidos simultaneos → 5 × 401 y 5 × 429', n401 === 5 && n429 === 5, `${n401} × 401, ${n429} × 429`);
+  console.log('   (esta IP queda bloqueada ~60 s por la prueba anterior)');
 }
 
 async function main() {

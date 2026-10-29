@@ -1,0 +1,43 @@
+/* Estilos de la pantalla de inicio de sesion. */
+body.login {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 16px;
+  background: radial-gradient(circle at top, #fdf6ec, var(--crema) 60%);
+}
+.login main { width: min(380px, 100%); }
+.tarjeta-login {
+  background: var(--papel);
+  border: 1px solid var(--borde);
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(75, 46, 31, 0.12);
+  overflow: hidden;
+}
+.tarjeta-login header {
+  background: var(--cafe);
+  color: #fff;
+  text-align: center;
+  padding: 24px 16px 18px;
+}
+.tarjeta-login header .logo { font-size: 42px; display: block; }
+.tarjeta-login header h1 { margin: 6px 0 2px; font-size: 22px; }
+.tarjeta-login header p { margin: 0; font-size: 13px; opacity: 0.8; }
+.tarjeta-login form { padding: 22px; display: flex; flex-direction: column; gap: 14px; }
+
+.campo-password { position: relative; }
+.campo-password input { padding-right: 76px; }
+.campo-password button {
+  position: absolute; right: 6px; top: 50%; transform: translateY(-50%);
+  border: none; background: none; color: var(--cafe-medio); font: inherit; font-size: 13px; font-weight: 600;
+  cursor: pointer; padding: 4px 6px;
+}
+.campo-password button:disabled { opacity: 0.5; cursor: not-allowed; }
+
+.mensaje { margin: 0; padding: 10px 12px; border-radius: 8px; font-size: 14px; line-height: 1.4; }
+.mensaje.error { background: var(--rojo-fondo); color: var(--rojo); border: 1px solid #efc2bd; }
+.mensaje.info { background: #fdf3e4; color: var(--cafe); border: 1px solid var(--borde); }
+.mensaje.bloqueo { background: var(--rojo-fondo); color: var(--rojo); border: 1px solid #efc2bd; text-align: center; }
+.mensaje.bloqueo strong { display: block; font-size: 28px; margin-top: 4px; }
+.mensaje small { display: block; margin-top: 4px; }
+.btn-entrar { width: 100%; padding: 12px; font-size: 15px; }

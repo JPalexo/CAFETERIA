@@ -53,7 +53,7 @@ app/
   pruebas/                  probar-auth.js (pruebas automáticas del login)
   src/utils/                texto.js (quitarAcentos / normalizarValor) e ids.js
   scripts/                  Scripts de mantenimiento de la base (ver abajo)
-  public/                   Frontend (index.html, styles.css, app.js)
+  public/                   Frontend: index.html (login), admin/, atencion/, css/, js/
 ```
 
 ## Endpoints

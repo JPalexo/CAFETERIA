@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Café Central · Atención</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>☕</text></svg>" />
+  <link rel="stylesheet" href="/css/base.css" />
+  <link rel="stylesheet" href="/css/atencion.css" />
+</head>
+<body class="cargando">
+  <header class="topbar" id="encabezado"></header>
+
+  <main class="contenedor">
+    <div class="barra-pagina">
+      <h2>Atención</h2>
+    </div>
+
+    <div class="aviso info">Aquí se tomarán los pedidos (TAREA_06).</div>
+    <div id="aviso" class="aviso oculto" role="alert"></div>
+
+    <h3 class="subtitulo">Productos disponibles</h3>
+    <section id="lista" class="grid" aria-live="polite"></section>
+  </main>
+
+  <div id="toast" class="toast" role="status"></div>
+
+  <script type="module" src="/js/atencion/inicio.js"></script>
+</body>
+</html>

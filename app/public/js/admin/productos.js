@@ -1,7 +1,11 @@
-// ================= Cafe Central - Frontend de productos =================
+// Panel de administracion: catalogo de productos (crear, editar, eliminar, disponibilidad y filtros).
+// Es el app.js original, ahora con sesion: solo para admin (RF-D1).
+import { api } from '../comun/api.js';
+import { iniciarPagina } from '../comun/sesion.js';
+import { $, escapar, dinero, toast } from '../comun/ui.js';
+
 const API = '/api/productos';
 
-const $ = (sel) => document.querySelector(sel);
 const lista = $('#lista');
 const resumen = $('#resumen');
 const aviso = $('#aviso');
@@ -16,49 +20,19 @@ const modal = $('#modalProducto');
 const form = $('#formProducto');
 const modalEliminar = $('#modalEliminar');
 
-let ingredientesForm = [];
-let ingredientesFiltro = [];
+const ingredientesForm = [];
+const ingredientesFiltro = [];
 let idPorEliminar = null;
 
-const moneda = new Intl.NumberFormat('es-MX', { style: 'currency', currency: 'MXN' });
-
 // ---------- Utilidades ----------
-function escapar(txt) {
-  const d = document.createElement('div');
-  d.textContent = txt ?? '';
-  return d.innerHTML.replace(/"/g, '&quot;').replace(/'/g, '&#39;');
-}
-
-function toast(msg, esError = false) {
-  const t = $('#toast');
-  t.textContent = msg;
-  t.classList.toggle('error', esError);
-  t.classList.add('visible');
-  clearTimeout(toast._t);
-  toast._t = setTimeout(() => t.classList.remove('visible'), 2600);
-}
-
 function mostrarAviso(msg) {
   aviso.innerHTML = `<span>${escapar(msg)}</span><button class="btn btn-secundario" id="btnReintentar">Reintentar</button>`;
   aviso.classList.remove('oculto');
   $('#btnReintentar').onclick = () => { aviso.classList.add('oculto'); cargarTodo(); };
 }
 
-async function pedir(url, opciones = {}) {
-  let res;
-  try {
-    res = await fetch(url, {
-      headers: { 'Content-Type': 'application/json' },
-      ...opciones,
-    });
-  } catch {
-    throw new Error('No hay conexión con el servidor. Verifica que esté corriendo (npm start).');
-  }
-  if (res.status === 204) return null;
-  const data = await res.json().catch(() => ({}));
-  if (!res.ok) throw new Error(data.error || `Error ${res.status}`);
-  return data;
-}
+// api() agrega el token; aqui solo interesan los datos
+const pedir = async (url, opciones) => (await api(url, opciones)).datos;
 
 function debounce(fn, ms = 300) {
   let t;
@@ -166,7 +140,7 @@ function pintar(productos) {
           <div class="categoria">${escapar(p.categoria)}</div>
           <h3>${escapar(p.nombre)}</h3>
         </div>
-        <div class="precio">${moneda.format(p.precio ?? 0)}</div>
+        <div class="precio">${dinero(p.precio)}</div>
       </div>
       ${p.descripcion ? `<p class="descripcion">${escapar(p.descripcion)}</p>` : ''}
       <div class="ingredientes">
@@ -315,4 +289,5 @@ $('#btnLimpiar').onclick = () => {
   cargarProductos();
 };
 
+await iniciarPagina({ roles: ['admin'], titulo: 'Panel de administración' });
 cargarTodo();

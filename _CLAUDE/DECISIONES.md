@@ -43,6 +43,9 @@
 | D21 | En modo prueba el servidor responde a `/extender` sin cambiar `expira` (devuelve `simulado: true`). | Cumple RF-S3: se ve el flujo completo sin alterar el tiempo real. |
 
 | D30 | En modo prueba el **cliente simula** el ciclo completo (alerta cada 10 s, contadores de extensión en memoria) porque el servidor no cambia el tiempo real (D21). Cerrar sesión sí es real. | Poder ver en 1 minuto todo el flujo (extender, aviso automático, cierre, tope de 60 min) sin esperar 8 horas. |
+| D31 | (T03, aceptada) En modo real la alerta abre **2 s antes** de `alertaEn` (sigue durando 30 s). | Que la extensión automática llegue al servidor antes de que venza la sesión; si no, daría 401. |
+| D32 | (T03, aceptada) El bloqueo del login se recuerda en `sessionStorage` para que la cuenta regresiva siga si se recarga la página. | Solo es para mostrarlo bien; quien bloquea de verdad es el servidor. |
+| D33 | (T03) En `/api/auth/login`, `express.json()` va **después** del rate limiter, y `errores.js` convierte el JSON mal formado en 400. | Así un JSON roto también cuenta como intento y no cae en 500. |
 
 ## Pedidos y recibos
 | # | Decisión | Por qué |

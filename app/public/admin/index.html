@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Café Central · Catálogo</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>☕</text></svg>" />
+  <link rel="stylesheet" href="/css/base.css" />
+  <link rel="stylesheet" href="/css/admin.css" />
+</head>
+<body class="cargando">
+  <header class="topbar" id="encabezado"></header>
+
+  <main class="contenedor">
+    <div class="barra-pagina">
+      <h2>Catálogo de productos</h2>
+      <button class="btn btn-primario" id="btnNuevo">+ Nuevo producto</button>
+    </div>
+
+    <div id="aviso" class="aviso oculto" role="alert"></div>
+
+    <section class="filtros" aria-label="Filtros">
+      <label class="campo">
+        <span>Buscar por nombre</span>
+        <input type="search" id="fNombre" placeholder="Ej. capuchino" />
+      </label>
+      <label class="campo">
+        <span>Categoría</span>
+        <select id="fCategoria"><option value="">Todas</option></select>
+      </label>
+      <label class="campo">
+        <span>Disponibilidad</span>
+        <select id="fDisponibilidad">
+          <option value="">Todas</option>
+          <option value="true">Disponibles</option>
+          <option value="false">No disponibles</option>
+        </select>
+      </label>
+      <label class="campo">
+        <span>Ingrediente</span>
+        <div class="chips-input" id="fIngredienteChips">
+          <input id="fIngrediente" placeholder="Ej. leche" />
+        </div>
+      </label>
+      <button class="btn btn-secundario" id="btnLimpiar">Limpiar</button>
+    </section>
+
+    <div class="resumen" id="resumen"></div>
+
+    <section id="lista" class="grid" aria-live="polite"></section>
+  </main>
+
+  <!-- Modal crear / editar -->
+  <dialog id="modalProducto">
+    <form id="formProducto" method="dialog" novalidate>
+      <h2 id="tituloModal">Nuevo producto</h2>
+      <input type="hidden" id="pId" />
+
+      <label class="campo">
+        <span>Nombre *</span>
+        <input id="pNombre" required maxlength="80" />
+      </label>
+
+      <div class="fila">
+        <label class="campo">
+          <span>Categoría *</span>
+          <input id="pCategoria" list="listaCategorias" required maxlength="50" placeholder="Elige o escribe una" />
+          <datalist id="listaCategorias"></datalist>
+        </label>
+        <label class="campo">
+          <span>Precio (MXN) *</span>
+          <input id="pPrecio" type="number" min="0.5" step="0.5" required />
+        </label>
+      </div>
+
+      <label class="campo">
+        <span>Descripción</span>
+        <textarea id="pDescripcion" rows="2" maxlength="200"></textarea>
+      </label>
+
+      <label class="campo">
+        <span>Ingredientes</span>
+        <div class="chips-input" id="chipsIngredientes">
+          <input id="pIngrediente" placeholder="Escribe y presiona Enter o coma" />
+        </div>
+      </label>
+
+      <label class="switch-fila">
+        <input type="checkbox" id="pDisponible" checked />
+        <span class="switch" aria-hidden="true"></span>
+        <span>Disponible para venta</span>
+      </label>
+
+      <p class="error-form" id="errorForm"></p>
+
+      <div class="acciones">
+        <button type="button" class="btn btn-secundario" id="btnCancelar">Cancelar</button>
+        <button type="submit" class="btn btn-primario" id="btnGuardar">Guardar</button>
+      </div>
+    </form>
+  </dialog>
+
+  <!-- Modal confirmar eliminación -->
+  <dialog id="modalEliminar">
+    <div class="confirmar">
+      <h2>Eliminar producto</h2>
+      <p>¿Seguro que quieres eliminar <strong id="nombreEliminar"></strong>? Esta acción no se puede deshacer.</p>
+      <div class="acciones">
+        <button class="btn btn-secundario" id="btnNoEliminar">Cancelar</button>
+        <button class="btn btn-peligro" id="btnSiEliminar">Eliminar</button>
+      </div>
+    </div>
+  </dialog>
+
+  <div id="toast" class="toast" role="status"></div>
+
+  <script type="module" src="/js/admin/productos.js"></script>
+</body>
+</html>

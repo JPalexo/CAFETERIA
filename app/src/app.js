@@ -6,10 +6,11 @@ const productosRoutes = require('./routes/productos.routes');
 const { noEncontradoApi, manejarErrores } = require('./middlewares/errores');
 
 const app = express();
-app.use(express.json());
 app.use(express.static(path.join(__dirname, '..', 'public')));
 
+// /api/auth va antes de express.json(): sus rutas leen el JSON despues del rate limiter (D29)
 app.use('/api/auth', authRoutes);
+app.use(express.json());
 app.use('/api/productos', productosRoutes);
 
 app.use('/api', noEncontradoApi);
