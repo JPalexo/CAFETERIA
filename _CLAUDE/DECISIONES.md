@@ -33,12 +33,16 @@
 | D17 | Límite y ventana configurables en `.env` (`LOGIN_MAX_INTENTOS=5`, `LOGIN_VENTANA_SEG=60`). | Cambiarlos sin tocar código. |
 | D18 | Nota para el reporte: en varios servidores (clúster) `node-cache` no sirve porque cada instancia tiene su propia memoria; se usaría **Redis** (`INCR` + `EXPIRE`). | Lo pide la nota técnica del PDF. |
 
+| D29 ⭐ | **Contar el intento antes de verificar** (`reservar(ip)` en el middleware) y limpiar si el login es correcto. Se detectó en la revisión de la T02: con peticiones simultáneas todas pasaban la consulta antes de que se registrara el primer fallo. | Node ejecuta el `get`+`set` de node-cache de forma síncrona, así que reservar en el middleware hace el conteo exacto aunque lleguen 100 peticiones a la vez. |
+
 ## Sesión y alerta
 | # | Decisión | Por qué |
 |---|---|---|
 | D19 | El servidor es quien manda en el tiempo: `GET /api/auth/sesion` devuelve `expira`, `extraDisponibleMin`, `autoExtensionUsada` y `modoPrueba`; `POST /api/auth/extender { minutos, automatica }` valida múltiplos de 5 y el tope de 60 min. | Si el frontend decidiera solo, se podría alargar la sesión sin límite desde la consola del navegador. |
 | D20 | La alerta se programa para `expira − 30 s` (o a los 10 s del login en modo prueba) en `public/js/comun/sesion.js`, compartido por admin y atención. | Una sola implementación para las dos vistas. |
 | D21 | En modo prueba el servidor responde a `/extender` sin cambiar `expira` (devuelve `simulado: true`). | Cumple RF-S3: se ve el flujo completo sin alterar el tiempo real. |
+
+| D30 | En modo prueba el **cliente simula** el ciclo completo (alerta cada 10 s, contadores de extensión en memoria) porque el servidor no cambia el tiempo real (D21). Cerrar sesión sí es real. | Poder ver en 1 minuto todo el flujo (extender, aviso automático, cierre, tope de 60 min) sin esperar 8 horas. |
 
 ## Pedidos y recibos
 | # | Decisión | Por qué |
