@@ -2,6 +2,7 @@
 
 | Fecha | Tarea | Resultado | Informe |
 |---|---|---|---|
+| 2026-10-29 | T02 Login con roles, sesiones en node-cache y rate limit 5/min → 429 | ✅ 28/28 + 5/5 (modo prueba) en `probar-auth.js` | `informes/INFORME_02.md` |
 | 2026-10-29 | Revisión de INFORME_01 (Cowork); remoto `origin` configurado; TAREA_02 escrita | OK, sin observaciones | INFORME_01 |
 | 2026-10-29 | T01 Reestructura (app/, datos/, docs/, capas en src/, git init) | ✅ todos los criterios; 404 JSON para /api | `informes/INFORME_01.md` |
 | 2026-10-26 | Recolección de requerimientos (Cowork): login, roles, rate limit, pedidos, recibos, alerta de sesión | Se creó `_CLAUDE/` y la TAREA_01 | — |

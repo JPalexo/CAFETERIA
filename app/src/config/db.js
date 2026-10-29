@@ -14,6 +14,9 @@ async function conectar() {
   await colecciones.productos.createIndex({ categoria: 1 });
   await colecciones.productos.createIndex({ disponibilidad: 1 });
   await colecciones.productos.createIndex({ ingredientes: 1 });
+  // Personal del negocio (D05): el nombre de usuario no se repite
+  colecciones.usuarios = db.collection('usuarios');
+  await colecciones.usuarios.createIndex({ usuario: 1 }, { unique: true });
   return colecciones;
 }
 

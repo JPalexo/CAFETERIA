@@ -3,14 +3,14 @@
 _Última actualización: 2026-10-29 (Code)_
 
 ## Siguiente paso
-➡️ **TAREA_02 — Backend de autenticación y Rate Limiting** (`tareas/TAREA_02_auth_rate_limit.md`).
+➡️ **TAREA_03 — Frontend de login y sesión** (Cowork debe escribir `tareas/TAREA_03_*.md`). T02 terminada, ver `informes/INFORME_02.md`. Alejandro: agregar variables a `.env` y correr `npm run crear-admin`.
 
 ## Plan por etapas
 | Tarea | Contenido | Quién | Estado |
 |---|---|---|---|
 | T01 | Reestructura a `app/ datos/ docs/`, separar `server.js` en capas, `git init` | Code | ✅ 2026-10-29 |
-| T02 | Backend de autenticación: `usuarios`, bcrypt, `crear-admin`, sesiones en node-cache, **rate limiter 5/min → 429**, proteger API | Code | ⏳ siguiente |
-| T03 | Frontend: login, redirección por rol, alerta de sesión (modo prueba), panel admin con el catálogo actual | Code | pendiente |
+| T02 | Backend de autenticación: `usuarios`, bcrypt, `crear-admin`, sesiones en node-cache, **rate limiter 5/min → 429**, proteger API | Code | ✅ 2026-10-29 |
+| T03 | Frontend: login, redirección por rol, alerta de sesión (modo prueba), panel admin con el catálogo actual | Code | ⏳ siguiente |
 | T04 | Pruebas en Bruno + capturas + entregable de la práctica (formato por confirmar) | Cowork + Alejandro | pendiente — **entrega de la práctica** |
 | T05 | Admin: usuarios del personal y clientes | Code | pendiente |
 | T06 | Atención: nuevo pedido (descuento 5 %), pedidos del día, estados y cancelación | Code | pendiente |

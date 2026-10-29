@@ -22,6 +22,20 @@ Abrir http://localhost:3000
 
 Si "MAIN" no es `mongodb://localhost:27017`, copia la cadena desde Compass (… > Copy connection string) y pégala en `MONGODB_URI` del archivo `app/.env`.
 
+### Primer administrador
+1. En `app/.env` pon tu propia contraseña en `ADMIN_PASSWORD` (mínimo 8 caracteres; ver `.env.example`).
+2. `npm run crear-admin` (si el usuario ya existe, no lo sobrescribe).
+
+Para crear más personal desde la terminal (PowerShell):
+```powershell
+$env:NUEVO_USUARIO_PASSWORD = "contrasena-del-mesero"
+npm run crear-usuario -- --usuario mesero1 --nombre "Ana Lopez" --rol atencion
+```
+
+### Pruebas del login y rate limit
+Con el servidor corriendo, en otra terminal: `npm run probar-auth` (tarda ~1.5 min porque espera a que se acabe la ventana de 60 s).
+Crea dos usuarios temporales y los borra al final.
+
 ## Estructura
 ```
 _CLAUDE/                    Memoria del proyecto (estado, tareas, informes, decisiones)
@@ -31,24 +45,32 @@ app/
   server.js                 Arranque: conecta a MongoDB y hace listen
   src/app.js                Crea Express, monta rutas y manejo de errores
   src/config/               env.js (variables de .env) y db.js (conexión e índices)
-  src/routes/               productos.routes.js (URL -> controlador)
-  src/controllers/          productos.controller.js (lógica de cada endpoint)
-  src/validators/           producto.validator.js
-  src/middlewares/          errores.js (404 de API y errores 500)
+  src/cache/                intentosLogin.js (rate limit) y sesiones.js (node-cache)
+  src/routes/               auth.routes.js, productos.routes.js (URL -> controlador)
+  src/controllers/          auth.controller.js, productos.controller.js (lógica de cada endpoint)
+  src/validators/           producto.validator.js, usuario.validator.js
+  src/middlewares/          rateLimiter.js, autenticacion.js, errores.js (404 de API y errores 500)
+  pruebas/                  probar-auth.js (pruebas automáticas del login)
   src/utils/                texto.js (quitarAcentos / normalizarValor) e ids.js
   scripts/                  Scripts de mantenimiento de la base (ver abajo)
   public/                   Frontend (index.html, styles.css, app.js)
 ```
 
 ## Endpoints
-| Método | Ruta | Uso |
-|---|---|---|
-| GET | /api/productos?q=&categoria=&disponibilidad=&ingrediente= | Listar y filtrar |
-| GET | /api/productos/categorias | Categorías existentes |
-| GET | /api/productos/:id | Un producto |
-| POST | /api/productos | Registrar |
-| PATCH | /api/productos/:id | Editar / cambiar disponibilidad |
-| DELETE | /api/productos/:id | Eliminar |
+Todas las rutas (menos el login) piden el encabezado `Authorization: Bearer <token>`.
+
+| Método | Ruta | Acceso | Uso |
+|---|---|---|---|
+| POST | /api/auth/login | público (máx. 5 fallos/min por IP → 429) | `{ usuario, password }` → token |
+| POST | /api/auth/logout | sesión | Cerrar sesión |
+| GET | /api/auth/sesion | sesión | Datos y tiempos de la sesión |
+| POST | /api/auth/extender | sesión | `{ minutos }` o `{ automatica: true }` |
+| GET | /api/productos?q=&categoria=&disponibilidad=&ingrediente= | sesión | Listar y filtrar |
+| GET | /api/productos/categorias | sesión | Categorías existentes |
+| GET | /api/productos/:id | sesión | Un producto |
+| POST | /api/productos | admin | Registrar |
+| PATCH | /api/productos/:id | admin | Editar / cambiar disponibilidad |
+| DELETE | /api/productos/:id | admin | Eliminar |
 
 Notas:
 - La edición usa `$set`, así que no borra campos extra que tenga un documento (RNF3). Al arrancar se crean índices en `categoria`, `disponibilidad` e `ingredientes` (RNF1).
