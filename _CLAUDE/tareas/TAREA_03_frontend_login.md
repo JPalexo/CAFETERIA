@@ -108,5 +108,5 @@ El servidor manda el tiempo (`GET /api/auth/sesion` → `alertaEn`, `expira`, `e
 - [ ] Se ve bien en ancho de celular (~375 px) y en escritorio.
 
 ## Al terminar
-- Commit `feat: login, vistas por rol y alerta de sesion (TAREA_03)`. No hagas push (lo hace Alejandro).
+- **No hagas commit ni push**: deja los cambios sin confirmar (Cowork arma los comandos de git).
 - Informe `INFORME_03.md` (incluye qué pruebas de navegador hiciste tú y cuáles quedaron a mano), `ESTADO.md` y `BITACORA.md`.

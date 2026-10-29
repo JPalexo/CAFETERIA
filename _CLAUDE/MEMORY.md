@@ -10,6 +10,7 @@
 2. Alejandro abre Claude Code en VS Code (en la carpeta `CAFETERIA/`) y le dice: **"haz la TAREA_0X"**.
 3. **Code** implementa, prueba y deja `_CLAUDE/informes/INFORME_0X.md` + actualiza `ESTADO.md` y `BITACORA.md`.
 4. Cowork lee el informe, revisa y escribe la siguiente tarea. Así no se pierde contexto entre chats ni entre equipos.
+5. **Git:** Code no hace commits. Cowork, al revisar cada informe, le entrega a Alejandro los comandos completos (`git add` por archivos/carpetas + `git commit` con mensaje descriptivo estilo Conventional Commits en español + `git push`) para que él los revise y los corra en PowerShell.
 - Las dudas que surjan en Code se anotan en el informe (sección "Dudas para Cowork"); Code no decide reglas de negocio por su cuenta.
 
 ## Preferencias

@@ -28,3 +28,4 @@ Equipo: Alejandro Bermúdez Báez y José Luis Estrada Torres.
 1. Crear `_CLAUDE/informes/INFORME_0X.md` con la plantilla `_CLAUDE/informes/_PLANTILLA_INFORME.md`.
 2. Actualizar `_CLAUDE/ESTADO.md` y agregar 1 línea a `_CLAUDE/BITACORA.md`.
 3. Si hiciste un cambio que no estaba en la tarea, anótalo en el informe (sección "Desviaciones").
+4. **No hagas `git commit` ni `git push`** (aunque la tarea lo diga). Deja los cambios sin confirmar; Cowork revisa el informe y le pasa a Alejandro los comandos de git ya armados.
