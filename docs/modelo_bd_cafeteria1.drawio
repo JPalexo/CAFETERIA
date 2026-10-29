@@ -1,0 +1,33 @@
+<mxfile host="app.diagrams.net" agent="Claude">
+  <diagram name="Modelo Documental - Cafe Central" id="modeloCafeCentral">
+    <mxGraphModel dx="1084" dy="614" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="826" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="titulo" parent="1" style="text;html=1;align=center;verticalAlign=middle;fontSize=18;fontStyle=1;" value="Modelo de Base de Datos Documental &lt;br&gt;Sistema Cafeteria" vertex="1">
+          <mxGeometry height="50" width="1020" x="40" y="10" as="geometry" />
+        </mxCell>
+        <mxCell id="clientes" parent="1" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacingLeft=8;spacingTop=6;fontSize=12;" value="&lt;font style=&quot;&quot;&gt;&lt;b style=&quot;&quot;&gt;&lt;font style=&quot;font-size: 16px;&quot;&gt;clientes&lt;/font&gt;&lt;/b&gt;&lt;br&gt;&lt;i style=&quot;font-size: 14px;&quot;&gt;(coleccion)&lt;/i&gt;&lt;/font&gt;&lt;hr&gt;&lt;font size=&quot;3&quot;&gt;_id: ObjectId&lt;br&gt;nombre: Cadena&lt;br&gt;apellido: Cadena&lt;br&gt;correo: Cadena (unico)&lt;br&gt;telefono: Cadena&lt;br&gt;fecha_registro: Fecha&lt;br&gt;direccion: Documento embebido&lt;br&gt;&amp;nbsp;&amp;nbsp;calle, num_ext, colonia,&lt;br&gt;&amp;nbsp;&amp;nbsp;ciudad, codigo_postal (Cadenas)&lt;/font&gt;" vertex="1">
+          <mxGeometry height="250" width="280" x="50" y="70" as="geometry" />
+        </mxCell>
+        <mxCell id="productos" parent="1" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacingLeft=8;spacingTop=6;fontSize=12;" value="&lt;b&gt;&lt;font style=&quot;font-size: 18px;&quot;&gt;productos&lt;/font&gt;&lt;/b&gt;&lt;br&gt;&lt;i&gt;&lt;font style=&quot;font-size: 14px;&quot;&gt;(coleccion)&lt;/font&gt;&lt;/i&gt;&lt;hr&gt;&lt;font style=&quot;font-size: 16px;&quot;&gt;_id: ObjectId&lt;br&gt;nombre: Cadena&lt;br&gt;categoria: Cadena&lt;br&gt;precio: Numero (decimal)&lt;br&gt;descripcion: Cadena&lt;br&gt;ingredientes: Arreglo de cadenas&lt;br&gt;disponibilidad: Booleano&lt;/font&gt;" vertex="1">
+          <mxGeometry height="210" width="280" x="30" y="340" as="geometry" />
+        </mxCell>
+        <mxCell id="pedidos" parent="1" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacingLeft=8;spacingTop=6;fontSize=12;" value="&lt;b&gt;&lt;font style=&quot;font-size: 18px;&quot;&gt;pedidos&lt;/font&gt;&lt;/b&gt;&lt;br&gt;&lt;i&gt;&lt;font style=&quot;font-size: 14px;&quot;&gt;(coleccion)&lt;/font&gt;&lt;/i&gt;&lt;hr&gt;&lt;font style=&quot;font-size: 16px;&quot;&gt;_id: ObjectId&lt;br&gt;numero_pedido: Numero (entero)&lt;br&gt;cliente_id: ObjectId (referencia)&lt;br&gt;fecha: Fecha&lt;br&gt;estado: Cadena&lt;br&gt;total: Numero (decimal)&lt;br&gt;productos: Arreglo de documentos embebidos&lt;br&gt;&amp;nbsp;&amp;nbsp;producto_id (ObjectId),&amp;nbsp;&lt;/font&gt;&lt;div&gt;&lt;font style=&quot;font-size: 16px;&quot;&gt;&amp;nbsp; nombre (Cadena),&lt;br&gt;&amp;nbsp;&amp;nbsp;cantidad (Numero entero),&lt;br&gt;&amp;nbsp;&amp;nbsp;precio_unitario, subtotal (Numero decimal)&lt;/font&gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="285" width="340" x="660" y="160" as="geometry" />
+        </mxCell>
+        <mxCell id="edgeRef1" edge="1" parent="1" source="pedidos" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;dashed=1;endArrow=open;endFill=1;fontSize=11;entryX=1.014;entryY=0.285;entryDx=0;entryDy=0;entryPerimeter=0;" target="clientes" value="cliente_id&#xa;(referencia)">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edgeRef2" edge="1" parent="1" source="pedidos" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;dashed=1;endArrow=open;endFill=1;fontSize=11;entryX=1.014;entryY=0.351;entryDx=0;entryDy=0;entryPerimeter=0;exitX=0;exitY=0.75;exitDx=0;exitDy=0;" target="productos" value="producto_id&#xa;(referencia opcional; el precio se copia al pedido)">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="650" y="370" as="sourcePoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="nota" parent="1" style="rounded=1;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacingLeft=8;spacingTop=6;fontSize=12;" value="Regla aplicada: se EMBEBE lo que se lee junto y cambia poco (direccion del cliente; el detalle de productos dentro del pedido, con su precio historico para que un cambio en el catalogo no altere ventas pasadas). Se REFERENCIA lo que se comparte y cambia de forma independiente (cliente_id en pedidos, para no duplicar ni desactualizar los datos del cliente)." vertex="1">
+          <mxGeometry height="90" width="1020" x="40" y="560" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

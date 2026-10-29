@@ -1,0 +1,154 @@
+[
+  {
+    "_id": {
+      "$oid": "650a3f3a3a3a3a3a3a3a0001"
+    },
+    "numero_pedido": 1001,
+    "cliente_id": {
+      "$oid": "650a1f1a1a1a1a1a1a1a0001"
+    },
+    "fecha": {
+      "$date": "2026-09-01T00:00:00Z"
+    },
+    "productos": [
+      {
+        "producto_id": {
+          "$oid": "650a2f2a2a2a2a2a2a2a0001"
+        },
+        "nombre": "Capuchino",
+        "cantidad": 2,
+        "precio_unitario": 45,
+        "subtotal": 90
+      },
+      {
+        "producto_id": {
+          "$oid": "650a2f2a2a2a2a2a2a2a0004"
+        },
+        "nombre": "Croissant de jamon y queso",
+        "cantidad": 1,
+        "precio_unitario": 38,
+        "subtotal": 38
+      }
+    ],
+    "total": 128,
+    "estado": "Recibido"
+  },
+  {
+    "_id": {
+      "$oid": "650a3f3a3a3a3a3a3a3a0002"
+    },
+    "numero_pedido": 1002,
+    "cliente_id": {
+      "$oid": "650a1f1a1a1a1a1a1a1a0002"
+    },
+    "fecha": {
+      "$date": "2026-09-02T00:00:00Z"
+    },
+    "productos": [
+      {
+        "producto_id": {
+          "$oid": "650a2f2a2a2a2a2a2a2a0003"
+        },
+        "nombre": "Frappe de moka",
+        "cantidad": 1,
+        "precio_unitario": 55,
+        "subtotal": 55
+      }
+    ],
+    "total": 55,
+    "estado": "En preparacion"
+  },
+  {
+    "_id": {
+      "$oid": "650a3f3a3a3a3a3a3a3a0003"
+    },
+    "numero_pedido": 1003,
+    "cliente_id": {
+      "$oid": "650a1f1a1a1a1a1a1a1a0003"
+    },
+    "fecha": {
+      "$date": "2026-09-03T00:00:00Z"
+    },
+    "productos": [
+      {
+        "producto_id": {
+          "$oid": "650a2f2a2a2a2a2a2a2a0002"
+        },
+        "nombre": "Latte vainilla",
+        "cantidad": 2,
+        "precio_unitario": 48,
+        "subtotal": 96
+      },
+      {
+        "producto_id": {
+          "$oid": "650a2f2a2a2a2a2a2a2a0005"
+        },
+        "nombre": "Pay de queso",
+        "cantidad": 1,
+        "precio_unitario": 42,
+        "subtotal": 42
+      }
+    ],
+    "total": 138,
+    "estado": "Listo"
+  },
+  {
+    "_id": {
+      "$oid": "650a3f3a3a3a3a3a3a3a0004"
+    },
+    "numero_pedido": 1004,
+    "cliente_id": {
+      "$oid": "650a1f1a1a1a1a1a1a1a0004"
+    },
+    "fecha": {
+      "$date": "2026-09-04T00:00:00Z"
+    },
+    "productos": [
+      {
+        "producto_id": {
+          "$oid": "650a2f2a2a2a2a2a2a2a0001"
+        },
+        "nombre": "Capuchino",
+        "cantidad": 1,
+        "precio_unitario": 45,
+        "subtotal": 45
+      },
+      {
+        "producto_id": {
+          "$oid": "650a2f2a2a2a2a2a2a2a0004"
+        },
+        "nombre": "Croissant de jamon y queso",
+        "cantidad": 2,
+        "precio_unitario": 38,
+        "subtotal": 76
+      }
+    ],
+    "total": 121,
+    "estado": "Entregado"
+  },
+  {
+    "_id": {
+      "$oid": "650a3f3a3a3a3a3a3a3a0005"
+    },
+    "numero_pedido": 1005,
+    "cliente_id": {
+      "$oid": "650a1f1a1a1a1a1a1a1a0005"
+    },
+    "fecha": {
+      "$date": "2026-09-05T00:00:00Z"
+    },
+    "productos": [
+      {
+        "producto_id": {
+          "$oid": "650a2f2a2a2a2a2a2a2a0003"
+        },
+        "nombre": "Frappe de moka",
+        "cantidad": 3,
+        "precio_unitario": 55,
+        "subtotal": 165
+      }
+    ],
+    "total": 165,
+    "estado": "Cancelado"
+  }
+]
