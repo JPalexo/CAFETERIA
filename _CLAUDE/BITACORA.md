@@ -2,6 +2,7 @@
 
 | Fecha | Tarea | Resultado | Informe |
 |---|---|---|---|
+| 2026-10-29 | Corrección (Cowork): alerta de modo prueba como cascarón, una vez por sesión, botones solo cierran (D34) | `sesion.js` editado; falta verla en navegador | — |
 | 2026-10-29 | Revisión de INFORME_03 (Cowork): desviaciones aceptadas (D31–D33); pruebas de navegador pasan a T04 | OK | INFORME_03 |
 | 2026-10-29 | T03 Frontend: login, vistas por rol, alerta de sesión (modo prueba) + arreglo D29 (`reservar`) y 400 por JSON mal formado | ⚠️ 31/31 en `probar-auth.js`; pruebas de navegador pendientes a mano | `informes/INFORME_03.md` |
 | 2026-10-29 | Revisión del repo tras commit/push de Alejandro; nueva regla: Code no hace commits, Cowork entrega los comandos | OK (main = 7fe0fd0) | — |

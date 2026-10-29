@@ -35,9 +35,11 @@
 - RN11. Si nadie responde la alerta en sus 30 s, la sesión se **extiende 5 minutos automáticamente una sola vez**, y se muestra un **aviso centrado con el fondo difuminado**: "Tu sesión se extendió 5 minutos. En el siguiente aviso, si no respondes, la sesión se cerrará."
 - RN12. Después de usar la extensión automática, si la siguiente alerta tampoco se responde, la sesión **se cierra**.
 - RN13. Si ya no queda tiempo extra (60 min usados), la alerta solo avisa que la sesión se cerrará y muestra el botón "Cerrar sesión".
-- RF-S3. **Modo prueba** (variable `SESION_MODO_PRUEBA=true` en `.env`): la alerta sale **10 segundos después de iniciar sesión**. En este modo:
-  - "Cerrar sesión" sí cierra la sesión.
-  - "Extender" y la extensión automática solo muestran su comportamiento visual (aviso incluido) **sin cambiar** el tiempo real de la sesión.
+- RF-S3. **Modo prueba** (variable `SESION_MODO_PRUEBA=true` en `.env`) — solo para demostrarle la alerta a la profesora; se quitará después (cambio pedido el 2026-10-29):
+  - La alerta sale **una sola vez por sesión**, 10 segundos después de iniciar sesión (si se cambia de vista o se recarga antes de verla, sale 10 s después de cargar).
+  - Es un **cascarón**: "Extender sesión" y "Cerrar sesión" **solo cierran la alerta**; no cambian ni cierran la sesión. Los botones − / + sí se mueven para mostrarlos.
+  - Si nadie responde en 30 s, se muestra el aviso centrado con fondo difuminado de la extensión automática; "Entendido" lo cierra y no pasa nada más.
+  - No afecta el resto de la app (el botón "Cerrar sesión" del encabezado sigue funcionando normal).
   - Con `SESION_MODO_PRUEBA=false` funciona el comportamiento real de 8 h.
 
 ## 4. Vista de Atención

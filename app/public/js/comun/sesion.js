@@ -1,7 +1,8 @@
 // Sesion en cada pagina protegida: revisa token y rol, pinta el encabezado y maneja la alerta de
-// cierre de sesion (RN8–RN13, RF-S1–RF-S3, D19–D21, D30). El servidor manda en el tiempo; en modo
-// prueba el cliente simula el ciclo (alerta cada 10 s y contadores en memoria) porque el servidor
-// no cambia la sesion real.
+// cierre de sesion (RN8–RN13, RF-S1–RF-S3, D19–D21, D34). El servidor manda en el tiempo.
+// Modo prueba (D34): la alerta es solo un "cascaron" de demostracion: sale UNA vez por sesion a los
+// 10 s, sus botones solo la cierran y, si nadie responde, muestra el aviso de extension automatica.
+// No llama al servidor ni cambia nada de la sesion. Se quitara cuando ya no se necesite.
 import { api, obtenerToken, borrarToken } from './api.js';
 import { $, escapar, toast } from './ui.js';
 
@@ -9,7 +10,8 @@ const VISTA_POR_ROL = { admin: '/admin/', atencion: '/atencion/' };
 const NOMBRE_ROL = { admin: 'Administrador', atencion: 'Atención' };
 
 const DURACION_ALERTA = 30 * 1000; // RF-S1
-const PRUEBA_SIGUIENTE = 10 * 1000; // D30: en modo prueba la siguiente alerta sale 10 s despues
+const PRUEBA_RETRASO = 10 * 1000; // D34: si se recarga antes de verla, sale 10 s despues de cargar
+const CLAVE_PRUEBA_VISTA = 'alertaPruebaVista'; // sessionStorage: token de la sesion que ya la vio
 const MARGEN_REAL = 2 * 1000; // en real la alerta abre 2 s antes para que termine antes de que expire
 const PASO = 5;
 const EXTRA_MAX = 60; // RN9
@@ -107,7 +109,7 @@ const estado = {
   alertaEn: 0,
   extraDisponibleMin: EXTRA_MAX,
   autoExtensionUsada: false,
-  fase: 'espera', // espera | alerta | ocupado | cerrando
+  fase: 'espera', // espera | alerta | ocupado | cerrando | inactiva (modo prueba ya mostrada)
   finAlerta: 0,
   minutos: PASO,
   modalAbierto: false,
@@ -121,8 +123,11 @@ function iniciarAlerta(sesion) {
   crearModales();
   estado.modoPrueba = sesion.modoPrueba;
   aplicarSesion(sesion);
-  // Modo prueba: los contadores viven en memoria; si se recarga la pagina empieza de nuevo (D30)
-  if (estado.modoPrueba && estado.alertaEn < Date.now()) estado.alertaEn = Date.now() + PRUEBA_SIGUIENTE;
+  if (estado.modoPrueba) {
+    // D34: una sola vez por sesion (aunque se cambie de vista o se recargue)
+    if (pruebaYaVista()) { estado.fase = 'inactiva'; return; }
+    if (estado.alertaEn < Date.now()) estado.alertaEn = Date.now() + PRUEBA_RETRASO;
+  }
 
   // Un solo temporizador que compara contra la hora real: si la pestana estuvo dormida, al volver
   // la alerta se ubica donde debe (no se confia en un setTimeout largo).
@@ -136,11 +141,18 @@ function aplicarSesion(s) {
   estado.autoExtensionUsada = s.autoExtensionUsada;
 }
 
-// Modo prueba: el servidor no cambio nada (D21), asi que el cliente lleva la cuenta.
-function simularExtension(minutos, automatica) {
-  estado.extraDisponibleMin -= minutos;
-  if (automatica) estado.autoExtensionUsada = true;
-  estado.alertaEn = Date.now() + PRUEBA_SIGUIENTE;
+// ----- Modo prueba (D34) -----
+function pruebaYaVista() {
+  try { return sessionStorage.getItem(CLAVE_PRUEBA_VISTA) === obtenerToken(); } catch { return false; }
+}
+function marcarPruebaVista() {
+  try { sessionStorage.setItem(CLAVE_PRUEBA_VISTA, obtenerToken()); } catch { /* sin storage: solo esta pagina */ }
+}
+// Cualquier boton de la alerta de prueba solo la cierra; no toca la sesion.
+function terminarPrueba() {
+  estado.fase = 'inactiva';
+  clearInterval(estado.intervalo);
+  cerrarModal();
 }
 
 function revisar() {
@@ -200,8 +212,8 @@ function crearModales() {
 
   modal.querySelector('#btnMenos').onclick = () => cambiarMinutos(-PASO);
   modal.querySelector('#btnMas').onclick = () => cambiarMinutos(PASO);
-  modal.querySelector('#btnAlertaExtender').onclick = extender;
-  modal.querySelector('#btnAlertaCerrar').onclick = () => cerrarSesion('cerrada');
+  modal.querySelector('#btnAlertaExtender').onclick = () => (estado.modoPrueba ? terminarPrueba() : extender());
+  modal.querySelector('#btnAlertaCerrar').onclick = () => (estado.modoPrueba ? terminarPrueba() : cerrarSesion('cerrada'));
   avisoAuto.querySelector('#btnEntendido').onclick = () => avisoAuto.close();
 }
 
@@ -211,6 +223,7 @@ function abrirAlerta(inicio) {
   estado.fase = 'alerta';
   estado.finAlerta = inicio + DURACION_ALERTA;
   estado.minutos = PASO;
+  if (estado.modoPrueba) marcarPruebaVista();
   if (avisoAuto.open) avisoAuto.close();
 
   const hayExtra = estado.extraDisponibleMin >= PASO;
@@ -266,8 +279,7 @@ async function extender() {
   habilitarBotones(false);
   try {
     const { datos } = await api('/api/auth/extender', { method: 'POST', body: JSON.stringify({ minutos }) });
-    if (estado.modoPrueba) simularExtension(minutos, false);
-    else aplicarSesion(datos.sesion);
+    aplicarSesion(datos.sesion);
     estado.fase = 'espera';
     cerrarModal();
     toast(`Sesión extendida ${minutos} min`);
@@ -283,6 +295,13 @@ async function extender() {
 async function sinRespuesta() {
   estado.fase = 'ocupado';
   cerrarModal();
+  if (estado.modoPrueba) {
+    // D34: solo se muestra el aviso como demostracion; la sesion no cambia
+    terminarPrueba();
+    avisoAuto.showModal();
+    avisoAuto.querySelector('#btnEntendido').focus();
+    return;
+  }
   if (estado.autoExtensionUsada || estado.extraDisponibleMin < PASO) {
     cerrarSesion('expirada');
     return;
@@ -292,8 +311,7 @@ async function sinRespuesta() {
       method: 'POST',
       body: JSON.stringify({ minutos: PASO, automatica: true }),
     });
-    if (estado.modoPrueba) simularExtension(PASO, true);
-    else aplicarSesion(datos.sesion);
+    aplicarSesion(datos.sesion);
     estado.fase = 'espera';
     avisoAuto.showModal();
     avisoAuto.querySelector('#btnEntendido').focus();
