@@ -2,7 +2,7 @@
 
 ## Equipo
 - Alejandro Bermúdez Báez — S24028195 (dueño del repo, GitHub: JPalexo)
-- José Luis Estrada Torres — matrícula: _pendiente_
+- José Luis Estrada Torres — S23004707
 - Docente: María Dolores González Martínez — EE Bases de Datos No Convencionales, 7.º semestre, Ing. de Software, UV (Facultad de Negocios y Tecnologías, Ixtaczoquitlán).
 
 ## Forma de trabajo (Cowork orquesta, Code ejecuta)

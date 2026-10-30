@@ -2,6 +2,7 @@
 
 | Fecha | Tarea | Resultado | Informe |
 |---|---|---|---|
+| 2026-10-29 | T04 Pruebas en navegador + colección Bruno + PDF de la práctica (Cowork) | ✅ Bruno 13/13; 15 capturas | `informes/INFORME_04.md` |
 | 2026-10-29 | Corrección (Cowork): alerta de modo prueba como cascarón, una vez por sesión, botones solo cierran (D34) | `sesion.js` editado; falta verla en navegador | — |
 | 2026-10-29 | Revisión de INFORME_03 (Cowork): desviaciones aceptadas (D31–D33); pruebas de navegador pasan a T04 | OK | INFORME_03 |
 | 2026-10-29 | T03 Frontend: login, vistas por rol, alerta de sesión (modo prueba) + arreglo D29 (`reservar`) y 400 por JSON mal formado | ⚠️ 31/31 en `probar-auth.js`; pruebas de navegador pendientes a mano | `informes/INFORME_03.md` |

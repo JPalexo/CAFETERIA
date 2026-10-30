@@ -1,0 +1,24 @@
+meta {
+  name: 07 Bloqueado con contrasena correcta
+  type: http
+  seq: 7
+}
+
+post {
+  url: {{baseUrl}}/api/auth/login
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "usuario": "{{usuario}}",
+    "password": "{{password}}"
+  }
+}
+
+tests {
+  test("429 aunque la contrasena sea correcta", function() {
+    expect(res.status).to.equal(429);
+  });
+}

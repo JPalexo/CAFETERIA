@@ -1,0 +1,25 @@
+meta {
+  name: 03 Intento fallido 3
+  type: http
+  seq: 3
+}
+
+post {
+  url: {{baseUrl}}/api/auth/login
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "usuario": "{{usuario}}",
+    "password": "contrasena-incorrecta"
+  }
+}
+
+tests {
+  test("401 y quedan 2 intentos", function() {
+    expect(res.status).to.equal(401);
+    expect(res.body.intentosRestantes).to.equal(2);
+  });
+}

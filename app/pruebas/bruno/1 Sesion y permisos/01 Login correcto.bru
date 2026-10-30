@@ -1,0 +1,29 @@
+meta {
+  name: 01 Login correcto
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{baseUrl}}/api/auth/login
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "usuario": "{{usuario}}",
+    "password": "{{password}}"
+  }
+}
+
+script:post-response {
+  if (res.status === 200) bru.setEnvVar("token", res.body.token);
+}
+
+tests {
+  test("200 OK con token", function() {
+    expect(res.status).to.equal(200);
+    expect(res.body.token).to.be.a("string");
+  });
+}

@@ -1,0 +1,21 @@
+meta {
+  name: 05 Cerrar sesion
+  type: http
+  seq: 5
+}
+
+post {
+  url: {{baseUrl}}/api/auth/logout
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token}}
+}
+
+tests {
+  test("200 sesion cerrada", function() {
+    expect(res.status).to.equal(200);
+  });
+}

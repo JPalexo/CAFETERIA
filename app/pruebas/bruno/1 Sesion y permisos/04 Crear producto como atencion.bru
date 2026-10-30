@@ -1,0 +1,30 @@
+meta {
+  name: 04 Crear producto como atencion
+  type: http
+  seq: 4
+}
+
+post {
+  url: {{baseUrl}}/api/productos
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token}}
+}
+
+body:json {
+  {
+    "nombre": "Producto prueba Bruno",
+    "categoria": "Pruebas",
+    "precio": 10,
+    "disponibilidad": true
+  }
+}
+
+tests {
+  test("403: atencion no puede crear productos", function() {
+    expect(res.status).to.equal(403);
+  });
+}

@@ -4,7 +4,7 @@ const { MongoClient } = require('mongodb');
 const { MONGODB_URI, DB_NAME } = require('../src/config/env');
 const { validarUsuario } = require('../src/validators/usuario.validator');
 
-async function crearUsuario(body) {
+async function crearUsuario(body, { restablecer = false } = {}) {
   const { errores, datos } = validarUsuario(body);
   if (errores.length) {
     console.error('ERROR:', errores.join(' '));
@@ -18,7 +18,16 @@ async function crearUsuario(body) {
     await usuarios.createIndex({ usuario: 1 }, { unique: true });
 
     if (await usuarios.findOne({ usuario: datos.usuario })) {
-      console.log(`El usuario "${datos.usuario}" ya existe. No se modifico nada.`);
+      if (!restablecer) {
+        console.log(`El usuario "${datos.usuario}" ya existe. No se modifico nada. (Usa --restablecer para cambiar su contrasena.)`);
+        return;
+      }
+      // Solo cambia la contrasena ($set); no toca nombre, rol ni estado
+      await usuarios.updateOne(
+        { usuario: datos.usuario },
+        { $set: { password_hash: await bcrypt.hash(datos.password, 10) } }
+      );
+      console.log(`Contrasena de "${datos.usuario}" restablecida.`);
       return;
     }
 

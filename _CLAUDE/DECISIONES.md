@@ -61,4 +61,5 @@
 ## Pruebas
 | # | Decisión | Por qué |
 |---|---|---|
+| D35 | (T04) `npm run crear-admin -- --restablecer` cambia solo la contraseña del admin (`$set`). Credenciales de prueba en `CREDENCIALES_PRUEBA.local.md`, ignorado por git (pedido de Alejandro). | Sin API de usuarios aún (T05) no había forma de cambiar la contraseña del admin. |
 | D28 | Colección de **Bruno** en `app/pruebas/bruno/` (login correcto, 5 fallidos, 6.º → 429, reinicio tras 60 s, rutas protegidas). | Bruno guarda las peticiones como archivos: quedan en el repo para el compañero. |

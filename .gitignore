@@ -4,3 +4,6 @@ respaldos/
 *.log
 .DS_Store
 Thumbs.db
+
+# Credenciales de prueba locales (no se suben)
+*.local.md
